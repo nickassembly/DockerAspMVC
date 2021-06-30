@@ -23,13 +23,12 @@ namespace BookManagement
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var server = Configuration["DbServer"] ?? "localhost";
-            var port = Configuration["DbPort"] ?? "1433"; // Default SQL Server port
-            var user = Configuration["DbUser"] ?? "SA"; // Warning do not use the SA account
-            var password = Configuration["Password"] ?? "Youtube2021";
+            var port = Configuration["DbPort"] ?? "1433"; // default
+            var user = Configuration["DbUser"] ?? "SA"; 
+            var password = Configuration["Password"] ?? "Test1234";
             var database = Configuration["Database"] ?? "bookDb";
 
             // Add Db context as a service to our application
@@ -39,7 +38,6 @@ namespace BookManagement
             services.AddControllersWithViews();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             DatabaseManagementService.MigrationInitialisation(app);
@@ -51,7 +49,6 @@ namespace BookManagement
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
